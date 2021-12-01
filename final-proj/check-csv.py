@@ -51,18 +51,20 @@ df1 = df1.drop(columns=['INMATE_STATUS_CODE', 'TOP_CHARGE'])
 
 
 """
-Find frequency of admitted times inmateID in df1 
+Rearrange df1
 """
 dff = df1.set_index(['INMATEID', 'ADMITTED_DT', 'DISCHARGED_DT'])
 dff.sort_index(inplace=True)
 dff = dff.reset_index()
-print(dff[0:5])
 
+# print(dff[0:5])
 # print(dff.index)
 
 
 """
-Find how many days btwn AD date & DIS date of a criminal
+Find *difference btwn AD & DIS dates of a criminal 
+     *total
+     *average
 """
 # Helper function, return the difference between 2 dates
 def term(start, end):
@@ -71,46 +73,31 @@ def term(start, end):
     return abs((end - start).days)
 
 
-# dff['Jail Days Consumed'] = dff.apply(lambda x: term(x['ADMITTED_DT'], x['DISCHARGED_DT']), axis=1)
-# print(dff.iloc[0:4])
+dff['Jail Days Consumed'] = dff.apply(lambda x: term(x['ADMITTED_DT'], x['DISCHARGED_DT']), axis=1)
+print(dff.iloc[0:4])
 
+total = dff['Jail Days Consumed'].sum()
+print(total)    #2306650
 
-
-# for a in admit[1:]:
-#     conv = pd.to_datetime(a)
-#     diff = conv - pd.to_datetime(dis)
-#     print(abs(diff))
-
-# def difference(list1,list2):
-#     for a in list1[1:]:
-#         conv = pd.to_datetime(a)
-#         diff = conv - pd.to_datetime(list2)
-#         diff_list.append(diff)
-#     return diff_list
-#
-# diff2 = difference(admit, dis)
-# print(diff2)
-
-
-
-# dff['Diff'] = (pd.to_datetime(dff['ADMITTED_DT']) - pd.to_datetime(dff['DISCHARGED_DT']).shift(1))
-# print(dff[0:5])
-
-
+#Find average of 'Jail Days Consumed'
+avg = dff['Jail Days Consumed'].mean()
+# print(avg)    #60.84702841014007
 
 
 
 
 """
-Find admitted frequency for each ID
+Find frequency of admitted times inmateID in df1 & average
 """
 res = dff.groupby('INMATEID').agg(
     Frequency=pd.NamedAgg(column="ADMITTED_DT", aggfunc='count')).reset_index()
 # print(res[0:5])
 
 freq = res['Frequency']
+# print(freq)
 
-
+freq = freq.mean()
+# print(freq)     #1.3165590053483365
 
 
 
@@ -122,11 +109,7 @@ Plot??
 
 
 
-
-
-
-
-
-
-
 # join_1.to_csv("join_2.csv", index=False)
+
+
+#
