@@ -36,20 +36,49 @@
     </label>
 </nav>
 <div class="container-fluid">
-    <div class="item">
-        <h1 class="title">Correlation between Crime Rates and Bail Reform in NYC (2019-2020)</h1>
-        <h4 class="author">Tien Nguyen</h4>
+    <div class="item" >
+        <h1 class="title" style="font-weight: bold">Correlation between Crime Rates and Bail Reform in NYC (2019-2020)</h1>
+        <h3 class="author">Tien Nguyen</h3>
+        <br/>
+        <img src="/images/crime.jpg">
         <p><br></p>
-        <h2>
-            Website Overview
+        <div id="toc_container">
+            <p class="toc_title">Contents</p>
+            <ul class="toc_list">
+                <li><a href="#overview">Overview</a></li>
+                <li><a href="#motivation">Motivation</a></li>
+                <li><a href="#data">Data</a></li>
+                <li><a href="#technique">Techniques</a></li>
+                <li><a href="#main_find">Main findings</a></li>
+                <li><a href="#citation">Citation</a></li>
+            </ul>
+        </div>
+
+        <h2 id="overview" style="font-weight: bold">
+            Overview
         </h2>
-        <p><strong>Final Report</strong> : contains a detailed report of the project including motivation, analyses, and
-            conclusions.</p>
-        <p><strong>Github repo</strong>: click the icons at the right top corner to check our github repo.</p>
+        <p><strong>Hypothesis</strong>: Does the 1st Bail Reform increase the crime rate?</p>
+        <p><strong>First Bail Reform Key Takeaways:</strong>:
+        <div style="font-size: 15px">
+            <li>Eliminate many bail & pretrial detention for nearly all misdemeanors and non-violent crimes</li>
+            <li>Aims to reduce jail population</li>
+        </div>
+
+        </p>
+        <p><strong>Data</strong>:
+            <a href="https://data.cityofnewyork.us/Public-Safety/NYPD-Arrests-Data-Historic-/8h9b-rp9u">NYPD Arrests Data (Historic),</a>
+            <a href="https://data.cityofnewyork.us/City-Government/2020-population/t8c6-3i7b">2020 population,</a>
+            <a href="https://www1.nyc.gov/site/planning/planning-level/nyc-population/current-future-populations.page">
+            Current Estimates of New York City's Population for July 2018,</a>
+            <a href="https://oag.ca.gov/sites/all/files/agweb/pdfs/cjsc/prof10/formulas.pdf">Crime Rate Formula,</a>
+            <a href="https://www.courtinnovation.org/sites/default/files/media/document/2019/Bail_Reform_NY_Summary.pdf">
+            New York's Bail Reform Law Summary of Major Components</a>
+        </p>
+        <p><strong>Methods</strong>: arithmetic calculations, dataframe manipulations </p>
+        <p><strong>Tools</strong>: Pandas, Numpy, Matplotlib</p>
         <p><br></p>
-        <h2>
-            Motivations
-        </h2>
+
+        <h2 id="motivation" style="font-weight: bold">Motivation</h2>
         <p>Ever since the COVID-19 pandemic hits, there has been a dramatic increase of crimes,
             both racially and not racially motivated, in New York City.
             On top of that, the re-releasing of criminals due to NYC bail reform can be considered as a major factor of
@@ -62,35 +91,102 @@
             advocate for
             changes in the system.</p>
         <p><br></p>
-        <h2>
-            Initial questions
-        </h2>
-        <ul>
-            <p>How many days an inmate is being admitted?</p>
-        </ul>
-        <p><br></p>
-        <h2>
-            Dataset
-        </h2>
-        <p>I downloaded the data from
-            <a href="https://opendata.cityofnewyork.us/">NYC Open Data</a>, specifically the following datasets:
-            <a href="https://data.cityofnewyork.us/Public-Safety/Inmate-Discharges/94ri-3ium">Inmate Discharges,</a>
-            <a href="https://data.cityofnewyork.us/Public-Safety/NYPD-Criminal-Court-Summons-Historic-/sv2w-rv3k">
-                NYPD Criminal Court Summons (Historic).</a>
-            Open Data is free public data published by New York City agencies and other partners. It contains a large
-            amount
-            of
-            datasets and
-            welcomes anyone who is interested in data related to NYC to create projects from them.
+
+        <h2 id="data" style="font-weight: bold">Data</h2>
+        <p><a href="https://data.cityofnewyork.us/Public-Safety/NYPD-Arrests-Data-Historic-/8h9b-rp9u">NYPD Arrests Data
+            (Historic)</a>
+            is a breakdown of every arrest effected in NYC by the NYPD going back to 2006 through the
+            end of the previous calendar year. Each record represents an arrest effected in NYC by the NYPD and includes
+            information about the type of crime,
+            the location and time of enforcement.
         </p>
+        <p>I use this data set to analyze the crime rate both in 2018-2019 and 2019-2020. It has a total of 19 columns
+            but I only keep the following for my analysis: </p>
+        <div style="font-size: 15px">
+            <li>ARREST_KEY: Randomly generated persistent ID for each arrest</li>
+            <li>ARREST_DATE: Exact date of arrest for the reported event</li>
+            <li>PD_DESC: Description of internal classification corresponding with PD code</li>
+            <li>OFNS_DESC: Description of internal classification corresponding with KY code</li>
+            <li>ARREST_BORO: Borough of arrest. B(Bronx), S(Staten Island), K(Brooklyn), M(Manhattan), Q(Queens)</li>
+            <li>AGE_GROUP: Perpetrator's age within a category</li>
+        </div>
+        <br />
+        <p>The dataset has 236775 rows for January 1st 2018 to March 31st 2019 filter
+        and 297575 rows for April 1st 2019 to December 31st 2020 filter</p>
+
+        <br/>
+
+        <h2 id="technique" style="font-weight: bold">Techniques</h2>
+        <div style="font-size: 15px">
+            <li>Filter unnecessary columns by using pd.drop method</li>
+            <li>Find the nummber of offenses for 5 boroughs by aggregating the dataframe with groupby method</li>
+            <li>Make comparison bar plot & pie charts by using matplotlib</li>
+        </div>
         <p><br></p>
-        <h2>
-            Main findings
-        </h2>
-        <ul>
-            <!--  <li><p><strong>2008</strong> is the year with the <strong>highest global revenues</strong> and the <strong>most games released.</strong></p></li>-->
-            <p>Not done yet</p>
-        </ul>
+
+        <h2 id="main_find" style="font-weight: bold">Main findings</h2>
+        <div style="font-size: 15px">
+            <p style="font-size: 15px"><strong>After the first bail reform on April 1st 2019:</strong></p>
+
+            <li>Crime rate in the Bronx increases by 5.91%</li>
+            <li>Crime rate in the Brooklyn increases by 6.55% </li>
+            <li>Crime rate in the Manhattan increases by 6.18%</li>
+            <li>Crime rate in the Queens increases by 6.05%</li>
+            <li>Crime rate in the Staten Island increases by 0.98%</li>
+
+            <div style="text-align: center;">
+                <img src="/images/comp-bar-chart.png" >
+            </div>
+            <br/>
+            <ul><p style="font-size: 15px"><strong>Pie charts of crime classifications across the 5 boroughs (2019-2020) shows that:</strong></p></ul>
+            <li>Brooklyn has the highest rate of the felonies classification <strong>(49.0%)</strong></li>
+            <li>Bronx has the highest rate of the misdemeanors classification <strong>(59.9%)</strong></li>
+        </div>
+        <div class="gallery-grid">
+            <figure class="gallery-frame">
+                <img class="gallery-img" src="/images/bx-pie.png">
+            </figure>
+            <figure class="gallery-frame">
+                <img class="gallery-img" src="/images/bk-pie.png">
+            </figure>
+            <figure class="gallery-frame">
+                <img class="gallery-img" src="/images/mh-pie.png">
+            </figure>
+            <figure class="gallery-frame">
+                <img class="gallery-img" src="/images/qn-pie.png">
+            </figure>
+            <figure class="gallery-frame">
+                <img class="gallery-img" src="/images/si-pie.png">
+            </figure>
+        </div>
+        <p><br></p>
+
+        <h2 id="citation" style="font-weight: bold">Citation</h2>
+        <p><a href="https://data.cityofnewyork.us/City-Government/2020-population/t8c6-3i7b">2020 population:</a>
+            projected New York City population numbers and percentage changes from 2010 through 2040 by Borough,
+            including school-age, 65 and Over, and total population.</p>
+
+        <p><a href="https://www1.nyc.gov/site/planning/planning-level/nyc-population/current-future-populations.page">
+            Current Estimates of New York City's Population for July 2018:</a>
+            U.S. Census Bureau's estimation of New York City's population as of July 1, 2018.
+        </p>
+
+        <p><a href="https://oag.ca.gov/sites/all/files/agweb/pdfs/cjsc/prof10/formulas.pdf">Crime Rate Formula:</a>
+        a reference sheet to perform crime rate calculation </p>
+
+        <p><a href="https://www.courtinnovation.org/sites/default/files/media/document/2019/Bail_Reform_NY_Summary.pdf">
+            New York's Bail Reform Law Summary of Major Components:</a>
+            detail changes of the reform, including the elimination of Money Bail and Pretrial Detention for
+            most misdeamnors and nonviolent felonies, Judges power in setting bail based on defendants financial condition,
+            the releasing of defendants while their cases are pending, the Legislation allows for Conditions of
+            Release other than Money Bail in certain circumstances, and potential impacts </p>
+        </p>
+
+        <p><a href="https://www.pythoncharts.com/matplotlib/beautiful-bar-charts-matplotlib/">
+            Beautiful Bar Charts in Matplotlib</a></p>
+
+        <p><a href="https://www.python-graph-gallery.com/">The Python Graph Gallery</a></p>
+        <p><a href="https://www.w3schools.com/">W3Schools</a></p>
     </div>
 
 </div>
