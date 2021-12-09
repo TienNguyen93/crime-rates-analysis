@@ -5,19 +5,20 @@
     box-sizing: border-box;
 }
 
-body{
-    font-family: monsterrat;
+.body{
+    font-family: 'Courier New', monospace;
 }
 
 .container {
     width: 80%;
     margin: 0 auto;
+    font-family: 'Courier New', monospace;
 }
 
 .item {
     width: -moz-fit-content;
     width: fit-content;
-    padding: 5px;
+    padding: 30px;
     margin-bottom: 1em;
 }
 
@@ -125,6 +126,53 @@ nav #icon {
     }
 }
 
-/*https://www.courtinnovation.org/sites/default/files/media/document/2019/Bail_Reform_NY_Summary.pdf*/
-/*https://www.courtinnovation.org/sites/default/files/media/documents/2021-02/Handout_Bail_Reform_Crime_02032021.pdf */
-/* https://www.courtinnovation.org/sites/default/files/media/document/2020/FactSheet_CCI_Bail_Reform_Revisited_05272020.pdf*/
+.gallery-grid {
+    display: -ms-grid;
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    grid-gap: 1.5rem;
+    justify-items: center;
+    margin: 0;
+    padding: 0;
+}
+
+.gallery-frame {
+    font-size: 1.2rem;
+    text-align: center;
+    background-color: #333;
+    color: #d9d9d9;
+}
+
+.gallery-img {
+    max-width: 100%;
+    height: auto;
+    object-fit: cover;
+    transition: opacity 0.25s ease-in-out;
+}
+
+/*repeat(auto-fit, minmax(250px, 3fr))*/
+
+#toc_container {
+    background: #f9f9f9 none repeat scroll 0 0;
+    border: 1px solid #aaa;
+    display: table;
+    font-size: medium;
+    margin: auto;
+    padding: 30px;
+    width: auto;
+}
+
+.toc_title {
+    font-weight: 700;
+    text-align: center;
+    font-size: large;
+}
+
+#toc_container li, #toc_container ul, #toc_container ul li{
+    list-style: outside none none !important;
+}
+
+img {
+    display: block;
+    margin: auto;
+}
