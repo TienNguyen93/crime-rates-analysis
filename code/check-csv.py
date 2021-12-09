@@ -1,87 +1,26 @@
+"""
+Title: Correlation between Crime Rates and Bail Reform in NYC (2018-2020)
+Resources: https://data.cityofnewyork.us/Public-Safety/NYPD-Arrests-Data-Historic-/8h9b-rp9u,
+           https://data.cityofnewyork.us/City-Government/2020-population/t8c6-3i7b,
+           https://www1.nyc.gov/site/planning/planning-level/nyc-population/current-future-populations.page,
+           https://oag.ca.gov/sites/all/files/agweb/pdfs/cjsc/prof10/formulas.pdf,
+           https://www.courtinnovation.org/sites/default/files/media/document/2019/Bail_Reform_NY_Summary.pdf,
+           https://www.pythoncharts.com/matplotlib/beautiful-bar-charts-matplotlib/,
+           https://www.python-graph-gallery.com/
+           https://www.w3schools.com/
+URl: https://tiennguyen93.github.io/final-project-395/
+"""
+
+
 import pandas as pd
-import string
 import numpy as np
 import matplotlib.pyplot as plt
-import folium
+
 
 """
 Datasets used:
     *NYPD Arrests Data (Historic)
 """
-
-
-"""
-Columns: 
-'INMATEID', 'ADMITTED_DT', 'DISCHARGED_DT', 'RACE', 
-'GENDER', 'AGE', 'INMATE_STATUS_CODE', 'TOP_CHARGE'
-"""
-df1 = pd.read_csv("../dataset/Inmate_Discharges.csv")
-
-
-"""
-Filter out unecessary columns df1
-"""
-df1 = df1.drop(columns=['INMATE_STATUS_CODE', 'TOP_CHARGE'])
-# print(df1.columns)
-# print(df1)
-
-
-"""
-Rearrange df1
-"""
-dff = df1.set_index(['INMATEID', 'ADMITTED_DT', 'DISCHARGED_DT'])
-dff.sort_index(inplace=True)
-dff = dff.reset_index()
-
-# print(dff[0:5])
-# print(dff.index)
-
-
-"""
-Find *difference btwn AD & DIS dates of a criminal 
-     *total
-     *average
-"""
-# Helper function, return the difference between 2 dates
-def term(start, end):
-    start = pd.to_datetime(start)
-    end = pd.to_datetime(end)
-    return abs((end - start).days)
-
-
-# dff['Jail Days Consumed'] = dff.apply(lambda x: term(x['ADMITTED_DT'], x['DISCHARGED_DT']), axis=1)
-# print(dff.iloc[0:4])
-#
-# total = dff['Jail Days Consumed'].sum()
-# print(total)    #2306650
-#
-# #Find average of 'Jail Days Consumed'
-# avg = dff['Jail Days Consumed'].mean()
-# print(avg)    #60.84702841014007
-
-
-"""
-Find frequency of admitted times inmateID in df1 & average
-"""
-res = dff.groupby('INMATEID').agg(
-    Frequency=pd.NamedAgg(column="ADMITTED_DT", aggfunc='count')).reset_index()
-# print(res[0:5])
-
-freq = res['Frequency']
-# print(freq)
-
-freq = freq.mean()
-# print(freq)     #1.3165590053483365
-
-
-"""
-Plot??
-"""
-# sns.barplot(x='ADMITTED_TIMES', y='INMATEID',data=df1)
-# plt.show()
-
-# join_1.to_csv("join_2.csv", index=False)
-
 
 #--------------------------------------------------------------------------------#
 """
@@ -97,11 +36,12 @@ df2 = pd.read_csv("../dataset/NYPD_Arrests_Data__Historic_(2019-2020).csv", low_
 """
 Filter out unecessary columns df2
 """
-df2 = df2.drop(columns=['PD_CD',
-                        'LAW_CODE','KY_CD',
+df2 = df2.drop(columns=['PD_CD','LAW_CODE','KY_CD',
                         'ARREST_PRECINCT', 'JURISDICTION_CODE',
-                        'PERP_SEX', 'PERP_RACE'])
-print(df2.columns)
+                        'PERP_SEX', 'PERP_RACE','X_COORD_CD', 'Y_COORD_CD', 'Latitude',
+                        'Longitude', 'Lon_Lat'])
+# print(df2.columns)
+
 """
 Find sum of offense of each boroughs
 """
@@ -136,7 +76,8 @@ labels = ('Bronx', 'Brooklyn', 'Manhattan', 'Queens', 'Staten Island')
 
 #--------------------------------------------------------------------------------#
 df3 = pd.read_csv("../dataset/NYPD_Arrests_Data__Historic_(2018-2019).csv", low_memory=False)
-print(df2.shape)
+# print(df2.shape)
+
 """
 Find total crime offenses for each boroughs
 """
