@@ -15,7 +15,7 @@ Columns:
 'INMATEID', 'ADMITTED_DT', 'DISCHARGED_DT', 'RACE', 
 'GENDER', 'AGE', 'INMATE_STATUS_CODE', 'TOP_CHARGE'
 """
-df1 = pd.read_csv("Inmate_Discharges.csv")
+df1 = pd.read_csv("../dataset/Inmate_Discharges.csv")
 
 
 """
@@ -90,7 +90,7 @@ Plot??
        'JURISDICTION_CODE', 'AGE_GROUP', 'PERP_SEX', 'PERP_RACE', 'X_COORD_CD',
        'Y_COORD_CD', 'Latitude', 'Longitude', 'Lon_Lat'
 """
-df2 = pd.read_csv("NYPD_Arrests_Data__Historic_(2019-2020).csv", low_memory=False)
+df2 = pd.read_csv("../dataset/NYPD_Arrests_Data__Historic_(2019-2020).csv", low_memory=False)
 # print(df2[0:5])
 
 
@@ -135,7 +135,7 @@ rate = np.round(rate)
 labels = ('Bronx', 'Brooklyn', 'Manhattan', 'Queens', 'Staten Island')
 
 #--------------------------------------------------------------------------------#
-df3 = pd.read_csv("NYPD_Arrests_Data__Historic_(2018-2019).csv", low_memory=False)
+df3 = pd.read_csv("../dataset/NYPD_Arrests_Data__Historic_(2018-2019).csv", low_memory=False)
 print(df2.shape)
 """
 Find total crime offenses for each boroughs
