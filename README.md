@@ -1,5 +1,7 @@
 # Correlation between Crime Rates and Bail Reform in NYC (2018-2020)
 
+[Correlation between Crime Rates and Bail Reform in NYC (2018-2020)](https://tiennguyen93.github.io/crime-rates-analysis/)
+
 ## Overview
 
 **Hypothesis**: Does the 1st Bail Reform increase the crime rate?
